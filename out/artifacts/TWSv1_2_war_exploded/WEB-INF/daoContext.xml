@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <!--定义数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close"
+          p:driverClass="com.mysql.jdbc.Driver"
+          p:jdbcUrl="jdbc:mysql://127.0.0.1:3306/tws2?useUnicode=true&amp;characterEncoding=UTF-8"
+          p:user="root"
+          p:password="root"
+          p:maxPoolSize="40"
+          p:minPoolSize="2"
+          p:initialPoolSize="2"
+          p:maxIdleTime="30"/>
+    <!--定义hibernate的SessionFactory，SessionFactory需要依赖数据源，注入dataSource-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource">
+        <!--annotatedClasses用来列出所有持久化类-->
+        <property name="annotatedClasses">
+            <list>
+                <value>xidian.tws.entity.CompanyEntity</value>
+                <value>xidian.tws.entity.DepartmentEntity</value>
+                <value>xidian.tws.entity.EmployeeEntity</value>
+                <value>xidian.tws.entity.EmployeerequestEntity</value>
+                <value>xidian.tws.entity.LendEntity</value>
+                <value>xidian.tws.entity.RobotEntity</value>
+                <value>xidian.tws.entity.ToolEntity</value>
+            </list>
+        </property>
+        <!--定义Hibernate SessionFactory的属性-->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 配置DAO组件的模板 -->
+    <!--<bean id="daoTemplate" abstract="true" lazy-init="true"-->
+          <!--p:sessionFactory-ref="sessionFactory"/>-->
+
+    <bean id="companyDao" class="xidian.tws.dao.impl.CompanyDaoImpl" p:sessionFactory-ref="sessionFactory"/>
+    <bean id="departmentDao" class="xidian.tws.dao.impl.DepartmentDaoImpl" p:sessionFactory-ref="sessionFactory"/>
+    <bean id="employeeDao" class="xidian.tws.dao.impl.EmployeeDaoImpl" p:sessionFactory-ref="sessionFactory"/>
+    <bean id="toolDao" class="xidian.tws.dao.impl.ToolDaoImpl" p:sessionFactory-ref="sessionFactory"/>
+    <bean id="employeerequestDao" class="xidian.tws.dao.impl.EmployeerequestDaoImpl" p:sessionFactory-ref="sessionFactory"/>
+    <bean id="lendDao" class="xidian.tws.dao.impl.LendDaoImpl" p:sessionFactory-ref="sessionFactory"/>
+    <bean id="robotDao" class="xidian.tws.dao.impl.RobotDaoImpl" p:sessionFactory-ref="sessionFactory"/>
+
+
+</beans>

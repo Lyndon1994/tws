@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+    <!--<bean id="company" class="xidian.tws.entity.CompanyEntity"/>-->
+    <!--<bean id="department" class="xidian.tws.entity.DepartmentEntity"/>-->
+    <!--<bean id="employee" class="xidian.tws.entity.EmployeeEntity" lazy-init="true"/>-->
+    <!--<bean id="staff" class="xidian.tws.entity.StaffEntity"/>-->
+    <!--<bean id="expert" class="xidian.tws.entity.ExpertEntity"/>-->
+    <!--<bean id="request" class="xidian.tws.entity.EmployeerequestEntity"/>-->
+    <!--<bean id="lend" class="xidian.tws.entity.LendEntity"/>-->
+    <!--<bean id="robot" class="xidian.tws.entity.RobotEntity"/>-->
+    <!--<bean id="tool" class="xidian.tws.entity.ToolEntity" lazy-init="true"/>-->
+    <!--<bean id="toolcheap" class="xidian.tws.entity.ToolCheapEntity"/>-->
+    <!--<bean id="toolexpensive" class="xidian.tws.entity.ToolExpensiveEntity"/>-->
+
+    <!-- 定义业务逻辑组件模板,为之注入DAO组件 -->
+    <!--<bean id="managerTemplate" abstract="true" lazy-init="true"/>-->
+
+    <!--业务逻辑组件-->
+    <bean id="employeeService" class="xidian.tws.service.impl.EmployeeServiceImpl"
+          p:companyDao-ref="companyDao"
+          p:departmentDao-ref="departmentDao"
+          p:employeeDao-ref="employeeDao"
+          p:employeerequestDao-ref="employeerequestDao"
+          p:lendDao-ref="lendDao"
+          p:toolDao-ref="toolDao"
+          p:robotDao-ref="robotDao"/>
+    <!--让Spring管理Action实例，依赖注入业务逻辑组件-->
+    <bean id="loginAction" class="xidian.tws.action.LoginAction" scope="prototype" p:employeeService-ref="employeeService"/>
+    <bean id="toolAction" class="xidian.tws.action.ToolAction" scope="prototype" p:employeeService-ref="employeeService"/>
+    <bean id="adminAction" class="xidian.tws.action.AdminAction" scope="prototype" p:employeeService-ref="employeeService"/>
+
+
+
+    <!-- 配置Hibernate的局部事务管理器，使用HibernateTransactionManager类
+		并注入SessionFactory的引用 -->
+    <bean id="transactionManager" class=
+            "org.springframework.orm.hibernate4.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"/>
+    <!-- 配置事务增强处理Bean,指定事务管理器 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!-- 用于配置详细的事务语义 -->
+        <tx:attributes>
+            <!-- 所有以'get'开头的方法是read-only的 -->
+            <tx:method name="get*" read-only="true"/>
+            <!-- 其他方法使用默认的事务设置 -->
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <!-- 配置一个切入点，匹配empManager和mgrManager
+            两个Bean的所有方法的执行 -->
+        <aop:pointcut id="twsPointcut"
+                      expression="bean(employeeService)"/>
+        <!-- 指定在leePointcut切入点应用txAdvice事务增强处理 -->
+        <aop:advisor advice-ref="txAdvice"
+                     pointcut-ref="twsPointcut"/>
+    </aop:config>
+</beans>

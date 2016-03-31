@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="default" extends="struts-default" namespace="/">
+    </package>
+
+    <package name="login" extends="default" namespace="/">
+        <!--Spring容器中Bean实例的ID-->
+        <action name="login" class="loginAction">
+            <result name="success">/WEB-INF/jsp/userinfo.jsp</result>
+            <result name="input">/WEB-INF/jsp/index.jsp</result>
+            <result name="error">/WEB-INF/jsp/index.jsp</result>
+        </action>
+    </package>
+
+    <package name="user" extends="default" namespace="/">
+        <action name="user">
+            <result>/WEB-INF/jsp/userinfo.jsp</result>
+        </action>
+    </package>
+
+    <package name="tools" extends="default" namespace="/">
+        <action name="alltools" class="xidian.tws.action.ToolAction" method="listAllTools">
+            <result>/WEB-INF/jsp/alltools.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+        <action name="selftools" class="xidian.tws.action.ToolAction" method="listSelfTools">
+            <result>/WEB-INF/jsp/selftools.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+        <action name="application" class="xidian.tws.action.ToolAction" method="application">
+            <result>/WEB-INF/jsp/alltools.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+        <action name="lends" class="xidian.tws.action.ToolAction" method="lendLog">
+            <result>/WEB-INF/jsp/lends.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+        <action name="request" class="xidian.tws.action.ToolAction" method="request">
+            <result>/WEB-INF/jsp/request.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </action>
+    </package>
+
+    <package name="admin" extends="default" namespace="/">
+        <action name="admin_*" class="xidian.tws.action.AdminAction" method="{1}">
+            <result>/WEB-INF/jsp/admin/tools.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="lending">/WEB-INF/jsp/admin/lending.jsp</result>
+            <result name="lendover" type="chain">admin_alltools</result>
+            <result name="return" type="chain">admin_alltools</result>
+            <result name="accept">/WEB-INF/jsp/admin/request.jsp</result>
+            <result name="refuse">/WEB-INF/jsp/admin/request.jsp</result>
+            <result name="request">/WEB-INF/jsp/admin/request.jsp</result>
+            <result name="robot">/WEB-INF/jsp/admin/robot.jsp</result>
+        </action>
+    </package>
+</struts>

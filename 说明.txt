@@ -1,0 +1,19 @@
+tools status:1-在库中 2-借出 0-损坏 3-预约中
+lend operate:1-借出 2-归还 0-注销
+robot status:1-空闲 2-忙 0-损坏
+employee_request status:0-已处理 1-审核中 2-接收 3-拒绝
+
+public enum EmployeeType {
+    一般员工,专家
+}
+public enum ToolType {
+    廉价工具,贵重工具
+}
+
+前面有数字的用数字，没有数字用字符串
+
+我加了外键，注意联系
+
+每个表大约5-10个数据
+
+最好在数据库中加，然后导出SQL
