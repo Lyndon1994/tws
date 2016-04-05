@@ -14,7 +14,7 @@
 			<s:iterator value="#session.request" id="req">
 				<div class="tl-post">
 					<span class="icon">&#59185;</span>
-					<p><span class="time">在 <s:date name="#req.time" format="yyyy-MM-dd HH:mm:ss"/>：</span> 成功申请了<a href="#"><s:property value="#req.tool.name"/></a>，该申请的状态为：<s:property value="#req.status"/> 。</p>
+					<p><span class="time">在 <s:date name="#req.time" format="yyyy-MM-dd HH:mm:ss"/>：</span> 成功申请了<span data-toggle="tooltip" data-placement="top" title="<s:property value="#req.tool"/>" style="color: blue;"><b><s:property value="#req.tool.name"/></b></span>，该申请的状态为：<span style="color: red;"><s:property value="#req.status"/></span> 。</p>
 				</div>
 			</s:iterator>
 		</div>

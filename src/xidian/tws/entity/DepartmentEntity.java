@@ -79,10 +79,7 @@ public class DepartmentEntity {
 
     @Override
     public String toString() {
-        return "DepartmentEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", company=" + company +
-                '}';
+        return  name + '\'' +
+                " 公司:" + company;
     }
 }

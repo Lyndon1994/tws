@@ -23,12 +23,18 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" media="all" />
 	<!--[if IE]><link rel="stylesheet" href="${pageContext.request.contextPath}/css/ie.css" media="all" /><![endif]-->
 	<!--[if lt IE 9]><link rel="stylesheet" href="${pageContext.request.contextPath}/css/lt-ie-9.css" media="all" /><![endif]-->
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="${pageContext.request.contextPath}/js/jquery1.11.3.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="testing">
 <header class="main">
 	<h1><strong>TWS</strong></h1>
-	<input id="search" type="text" value="search" onchange="search()" />
+	<input id="search" type="text" value="search" onchange="search()"  onkeypress="EnterPress()" onkeydown="EnterPress()"/>
 </header>
 <section class="user">
 	<div class="profile-img">
@@ -37,39 +43,33 @@
 	<div class="buttons">
 		<button class="ico-font">&#9206;</button>
 		<span class="button dropdown">
-			<a href="#">Notifications <span class="pip">4</span></a>
+			<a href="#">Notifications</a>
 			<ul class="notice">
-				<li>
+				<%--<li>
 					<hgroup>
 						<h1>You have a new task</h1>
 						<h2>Report web statistics week by week.</h2> 
 					</hgroup>
 					<p><span>14:24</span></p>
-				</li>
+				</li>--%>
 			</ul>
 		</span>
 		<span class="button">Help</span>
-		<span class="button blue"><a href="index.jsp">Logout</a></span>
+		<span class="button blue"><a href="logout.action">Logout</a></span>
 	</div>
 </section>
 </div>
 <nav>
 	<ul>
-		<li><a href="admin_alltools.action"><span class="icon">&#128196;</span> Tools </a>
+		<li><a href="admin_alltools.action"><span class="icon">&#9881;</span> Tools </a>
 			<ul class="submenu">
 				<li><a href="admin_robot.action">Robots</a></li>
 			</ul>
 		</li>
-		<li><a href="admin_allRequest.action"><span class="icon">&#128202;</span> Application</a></li>
+		<li><a href="admin_allRequest.action"><span class="icon">&#128196;</span> Application</a></li>
 		<li><a href="user.action"><span class="icon">&#128101;</span> Users </a></li>
 	</ul>
 </nav>
 
-<section class="alert">
-	<div class="green">	
-		<p>Hi Lee, you have <a href="#">3 new pages</a> and <a href="#">16 comments</a> to approve, better get going!</p>
-		<span class="close">&#10006;</span>
-	</div>
-</section>
 
 

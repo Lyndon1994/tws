@@ -137,7 +137,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (tool != null) {
             employeerequestDao.save(new EmployeerequestEntity(employee, tool, new Date()));
             toolDao.updatePre(employee, tool);
-            employeeDao.addTool(employee,tool);
+            if(!employee.getEmployeeType().equals(EmployeeType.管理员))
+                employeeDao.addTool(employee, tool);
             return true;
         }
         return false;
@@ -187,6 +188,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<ToolEntity> findCompanyTools(CompanyEntity company) {
         return toolDao.findCompanyTools(company);
+    }
+
+    /**
+     * 查找关键词匹配工具
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public List<ToolEntity> findAllTools(String key) {
+        if (key != null && !key.equals("")) {
+            return toolDao.findKey(key);
+        }
+        return toolDao.findAllTools();
     }
 
     /**

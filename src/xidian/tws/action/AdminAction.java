@@ -16,6 +16,7 @@ public class AdminAction extends ActionSupport {
     private ToolEntity tool;
     private int tid;//工具ID
     private int rid;//申请ID
+    private String key="";//搜索关键字
 
     //系统所用的业务逻辑组件
     private EmployeeService employeeService;
@@ -57,7 +58,13 @@ public class AdminAction extends ActionSupport {
         this.rid = rid;
     }
 
+    public String getKey() {
+        return key;
+    }
 
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     /**
      * 管理员借工具
@@ -186,6 +193,27 @@ public class AdminAction extends ActionSupport {
             allToolsList = employeeService.findCompanyTools(employee.getCompany());
             ctx.getSession().put("allToolsList", allToolsList);
             return SUCCESS;
+        } else {
+            return ERROR;
+        }
+    }
+
+    /**
+     * 管理员搜索工具
+     * @return
+     */
+    public String search() {
+        ActionContext ctx = ActionContext.getContext();
+        employee = (EmployeeEntity) ctx.getSession().get("employee");
+
+        if (employee != null) {
+            List<ToolEntity> allToolsList = null;
+            ctx.getSession().remove("allToolsList");
+            allToolsList = employeeService.findAllTools(key);
+            System.out.println(key);
+            System.out.println(allToolsList);
+            ctx.getSession().put("allToolsList", allToolsList);
+            return "search";
         } else {
             return ERROR;
         }

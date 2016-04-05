@@ -21,7 +21,7 @@ public class EmployeeEntity {
     @Column(name = "PASSWORD", nullable = true, length = 50)
     private String password;
 
-    @OneToMany(targetEntity = ToolEntity.class)
+    @OneToMany(targetEntity = ToolEntity.class,cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch=FetchType.EAGER)
     @JoinTable(name = "employee_tools"
             ,joinColumns = @JoinColumn(name = "EMPLOYEE_ID",referencedColumnName = "EMPLOYEE_ID")
             ,inverseJoinColumns = @JoinColumn(name = "TOOL_ID",referencedColumnName = "TOOL_ID"))
@@ -122,14 +122,11 @@ public class EmployeeEntity {
 
     @Override
     public String toString() {
-        return "EmployeeEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' /*+
-                ", tools=" + tools +
-                ", employeeType=" + employeeType +
-                ", company=" + company +
-                ", department=" + department */+
-                '}';
+        String string = "ID:" + id + " 级别:" + employeeType.toString();
+        if (department!=null&&!department.equals(""))
+            string+=" 部门:" + department;
+        if (company!=null&&!company.equals(""))
+            string+=" 公司:" + company;
+        return string;
     }
 }

@@ -112,11 +112,9 @@ public class ToolEntity {
 
     @Override
     public String toString() {
-        return "ToolEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", department=" + department.getName() +
-                ", status=" + status.toString() +
-                '}';
+        return "ID:" + id +
+                " 名称:'" + name +
+                " 部门:" + department.getName() +
+                " 状态:" + status.toString();
     }
 }

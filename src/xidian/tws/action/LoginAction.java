@@ -49,4 +49,13 @@ public class LoginAction extends ActionSupport {
             return INPUT;
         }
     }
+
+    public String logout() throws Exception{
+        ActionContext ctx = ActionContext.getContext();
+        EmployeeEntity employee =(EmployeeEntity) ctx.getSession().get("employee");
+        if (employee!=null) {
+            ctx.getSession().remove("employee");
+            return SUCCESS;
+        }return ERROR;
+    }
 }

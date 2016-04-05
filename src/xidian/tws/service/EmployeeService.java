@@ -77,6 +77,13 @@ public interface EmployeeService {
     public List<ToolEntity> findCompanyTools(CompanyEntity company);
 
     /**
+     * 查找关键词匹配工具
+     * @param key
+     * @return
+     */
+    List<ToolEntity> findAllTools(String key);
+
+    /**
      * 员工借工具
      * @param tool
      * @return
@@ -121,4 +128,6 @@ public interface EmployeeService {
      * @return
      */
     List<RobotEntity> findAllRobots(CompanyEntity company);
+
+
 }

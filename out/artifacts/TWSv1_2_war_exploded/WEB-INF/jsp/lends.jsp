@@ -14,11 +14,10 @@
 			<s:iterator value="#session.lends" id="lend">
 				<div class="tl-post">
 					<span class="icon">&#59185;</span>
-					<p><s:property value="#lend.operate"/> <a href="#"><s:property value="#lend.tool.name"/></a> <span class="time">in <s:property value="#lend.time"/></span></p>
+					<p><s:property value="#lend.operate"/> <span data-toggle="tooltip" data-placement="top" title="<s:property value="#lend.tool"/>" style="color: blue;"><b><s:property value="#lend.tool.name"/></b></span> <span class="time">in <s:property value="#lend.time"/></span></p>
 				</div>
 			</s:iterator>
 		</div>
 	</section>
 </section>
-
 <%@include file="footer.jsp"%>

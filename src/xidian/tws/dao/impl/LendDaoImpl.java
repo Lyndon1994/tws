@@ -20,7 +20,7 @@ public class LendDaoImpl extends BaseDaoHibernate4<LendEntity> implements LendDa
      */
     @Override
     public List<LendEntity> findByEmpId(int empId) {
-        List<LendEntity> list = find("select l from LendEntity l where l.employee.id = ?0",empId);
+        List<LendEntity> list = find("select l from LendEntity l where l.employee.id = ?0 order by l.time desc",empId);
         return list;
     }
 

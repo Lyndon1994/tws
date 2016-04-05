@@ -5,8 +5,26 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <constant name="struts.custom.i18n.resources" value="mess"/>
+    <!-- 设置该应用使用的字符集 -->
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+
     <package name="default" extends="struts-default" namespace="/">
+        <interceptors>
+            <interceptor name="auth" class="xidian.tws.interceptor.AuthorityInterceptor"/>
+            <interceptor name="authority" class="xidian.tws.interceptor.AuthorityInterceptor"/>
+            <interceptor name="adminAuthority" class="xidian.tws.interceptor.AdminAuthorityInterceptor"/>
+            <interceptor-stack name="dafault">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="auth"/>
+            </interceptor-stack>
+            <interceptor-stack name="admin">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="adminAuthority"/>
+            </interceptor-stack>
+        </interceptors>
     </package>
+
 
     <package name="login" extends="default" namespace="/">
         <!--Spring容器中Bean实例的ID-->
@@ -15,48 +33,70 @@
             <result name="input">/WEB-INF/jsp/index.jsp</result>
             <result name="error">/WEB-INF/jsp/index.jsp</result>
         </action>
+        <action name="logout" class="loginAction" method="logout">
+            <interceptor-ref name="dafault"/>
+            <result name="success">/WEB-INF/jsp/index.jsp</result>
+            <result name="input">/WEB-INF/jsp/index.jsp</result>
+            <result name="error">/WEB-INF/jsp/index.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
+        </action>
     </package>
 
     <package name="user" extends="default" namespace="/">
         <action name="user">
+            <interceptor-ref name="dafault"/>
             <result>/WEB-INF/jsp/userinfo.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
         </action>
     </package>
 
     <package name="tools" extends="default" namespace="/">
         <action name="alltools" class="xidian.tws.action.ToolAction" method="listAllTools">
+            <interceptor-ref name="dafault"/>
             <result>/WEB-INF/jsp/alltools.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
         </action>
         <action name="selftools" class="xidian.tws.action.ToolAction" method="listSelfTools">
+            <interceptor-ref name="dafault"/>
             <result>/WEB-INF/jsp/selftools.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
         </action>
         <action name="application" class="xidian.tws.action.ToolAction" method="application">
-            <result>/WEB-INF/jsp/alltools.jsp</result>
+            <interceptor-ref name="dafault"/>
+            <result name="success" type="chain">alltools.action</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
         </action>
         <action name="lends" class="xidian.tws.action.ToolAction" method="lendLog">
+            <interceptor-ref name="dafault"/>
             <result>/WEB-INF/jsp/lends.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
         </action>
         <action name="request" class="xidian.tws.action.ToolAction" method="request">
+            <interceptor-ref name="dafault"/>
             <result>/WEB-INF/jsp/request.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
         </action>
     </package>
 
     <package name="admin" extends="default" namespace="/">
         <action name="admin_*" class="xidian.tws.action.AdminAction" method="{1}">
+            <interceptor-ref name="admin"/>
             <result>/WEB-INF/jsp/admin/tools.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
             <result name="lending">/WEB-INF/jsp/admin/lending.jsp</result>
             <result name="lendover" type="chain">admin_alltools</result>
             <result name="return" type="chain">admin_alltools</result>
-            <result name="accept">/WEB-INF/jsp/admin/request.jsp</result>
-            <result name="refuse">/WEB-INF/jsp/admin/request.jsp</result>
+            <result name="search">/WEB-INF/jsp/admin/tools.jsp</result>
             <result name="request">/WEB-INF/jsp/admin/request.jsp</result>
+            <result name="accept" type="chain">admin_allRequest</result>
+            <result name="refuse" type="chain">admin_allRequest</result>
             <result name="robot">/WEB-INF/jsp/admin/robot.jsp</result>
+            <result name="login">/WEB-INF/jsp/index.jsp</result>
         </action>
     </package>
 </struts>

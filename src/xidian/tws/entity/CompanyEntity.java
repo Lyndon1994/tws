@@ -71,10 +71,6 @@ public class CompanyEntity {
 
     @Override
     public String toString() {
-        return "CompanyEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                '}';
+        return name + "（" + location + ")";
     }
 }

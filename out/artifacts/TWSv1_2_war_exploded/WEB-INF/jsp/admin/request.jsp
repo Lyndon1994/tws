@@ -39,13 +39,11 @@
 				<s:else>
 					<s:iterator value="#session.allRequest" id="allReq">
 						<tr>
-							<td><s:property value="#allReq.employee.name"/></td>
+							<td><span data-toggle="tooltip" data-placement="top" title="<s:property value="#allReq.employee"/>"><s:property value="#allReq.employee.name"/></span></td>
 							<td><s:property value="#allReq.tool.id"/></td>
-							<td><s:property value="#allReq.tool.name"/></td>
+							<td><span data-toggle="tooltip" data-placement="top" title="<s:property value="#allReq.tool"/>"><s:property value="#allReq.tool.name"/></span></td>
 							<td><s:property value="#allReq.time"/></td>
-							<td>
-								<s:property value="#allReq.status"/>
-							</td>
+							<td><s:property value="#allReq.status"/></td>
 							<td>
 								<s:if test="#allReq.status.toString()==\"审核中\"">
 									<button class="green"><a href="
@@ -68,5 +66,7 @@
 		</div>
 	</section>
 </section>
-
+<script language="JavaScript">
+	$('[data-toggle="tooltip"]').tooltip();
+</script>
 <%@include file="footer.jsp"%>

@@ -35,9 +35,17 @@ public interface ToolDao extends BaseDao<ToolEntity> {
      */
     public List<ToolEntity> findCompanyTools(CompanyEntity company);
 
+
+    /**
+     * 搜工具
+     * @param key
+     * @return
+     */
+    List<ToolEntity> findKey(String key);
+
     /**
      * 找到所有工具
-     * @return 部门所有工具
+     * @return 所有工具
      */
     public List<ToolEntity> findAllTools();
 
@@ -58,4 +66,6 @@ public interface ToolDao extends BaseDao<ToolEntity> {
      * @param tool
      */
     void updateCancel(ToolEntity tool);
+
+
 }

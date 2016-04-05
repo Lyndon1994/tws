@@ -28,6 +28,7 @@
         prev:    '.left-btn',
         next:    '.right-btn'
     });
+    $('[data-toggle="tooltip"]').tooltip();
 </script>
 </body>
 </html>

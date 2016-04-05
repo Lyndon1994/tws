@@ -19,10 +19,16 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
 	<!-- 新 Bootstrap 核心 CSS 文件 -->
 	<%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">--%>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/myscc.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" media="all" />
 	<!--[if IE]><link rel="stylesheet" href="${pageContext.request.contextPath}/css/ie.css" media="all" /><![endif]-->
 	<!--[if lt IE 9]><link rel="stylesheet" href="${pageContext.request.contextPath}/css/lt-ie-9.css" media="all" /><![endif]-->
-</head>
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="${pageContext.request.contextPath}/js/jquery1.11.3.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script></head>
 <body>
 <div class="testing">
 <header class="main">
@@ -36,65 +42,37 @@
 	<div class="buttons">
 		<button class="ico-font">&#9206;</button>
 		<span class="button dropdown">
-			<a href="#">Notifications <span class="pip">4</span></a>
+			<a href="#">Notifications</a>
 			<ul class="notice">
-				<li>
+				<%--<li>
 					<hgroup>
 						<h1>You have a new task</h1>
 						<h2>Report web statistics week by week.</h2> 
 					</hgroup>
 					<p><span>14:24</span></p>
-				</li>
-				<li>
-					<hgroup>
-						<h1>New comment</h1>
-						<h2>Comment on <em>About page</em> by Darren.</h2> 
-					</hgroup>
-					<p><span>11:04</span></p>
-				</li>
-				<li>
-					<hgroup>
-						<h1>Broken link</h1>
-						<h2>We've spotted a broken link on the <em>Blog page</em>.</h2> 
-					</hgroup>
-					<p><span>10:46</span></p>
-				</li>
-				<li>
-					<hgroup>
-						<h1>User report</h1>
-						<h2><em>Lee Grant</em> has been promoted to admin.</h2> 
-					</hgroup>
-					<p><span>09:57</span></p>
-				</li>
+				</li>--%>
 			</ul>
 		</span>
 		<span class="button">Help</span>
-		<span class="button blue"><a href="index.jsp">Logout</a></span>
+		<span class="button blue"><a href="logout.action">Logout</a></span>
 	</div>
 </section>
 </div>
 <nav>
 	<ul>
 		<li>
-			<a href="selftools.action"><span class="icon">&#128196;</span> Tools </a>
+			<a href="selftools.action"><span class="icon">&#9881;</span> Tools </a>
 			<ul class="submenu">
 				<li><a href="alltools.action">All Tools</a></li>
-				<li><a href="request.action">My Requests</a></li>
 			</ul>
 		</li>
-		<li><a href="lends.action"><span class="icon">&#128202;</span> Application</a></li>
+		<li><a href="lends.action"><span class="icon">&#128214;</span> Lends</a></li>
 		<li>
-			<a href="reply.action"><span class="icon">&#59160;</span> Reply <span class="pip">12</span></a>
+			<a href="request.action"><span class="icon">&#128196;</span> Application</a>
 		</li>
-		<li><a href="user.action"><span class="icon">&#128101;</span> Users <span class="pip">3</span></a></li>
+		<li><a href="user.action"><span class="icon">&#128101;</span> Users</a></li>
 	</ul>
 </nav>
 
-<section class="alert">
-	<div class="green">	
-		<p>Hi Lee, you have <a href="#">3 new pages</a> and <a href="#">16 comments</a> to approve, better get going!</p>
-		<span class="close">&#10006;</span>
-	</div>
-</section>
 
 

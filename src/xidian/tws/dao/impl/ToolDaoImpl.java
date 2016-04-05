@@ -43,10 +43,22 @@ public class ToolDaoImpl extends BaseDaoHibernate4<ToolEntity> implements ToolDa
     public List<ToolEntity> findCompanyTools(CompanyEntity company){
         return find("select t from ToolEntity t where t.department.company =?0",company);
     }
+
+    /**
+     * 搜工具
+     *
+     * @param key
+     * @return
+     */
+    @Override
+    public List<ToolEntity> findKey(String key) {
+        return find("select t from ToolEntity t where t.name like ?0","%"+key+"%");
+    }
+
     /**
      * 找到所有工具
      *
-     * @return 部门所有工具
+     * @return 所有工具
      */
     @Override
     public List<ToolEntity> findAllTools() {
